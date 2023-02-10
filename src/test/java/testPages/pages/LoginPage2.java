@@ -6,6 +6,7 @@ import java.util.List;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -40,6 +41,10 @@ public class LoginPage2 {
 	
 	@FindBy(tagName="a") //Para capturar varios elementos 
 	List<WebElement> links;
+	
+	//Otra manera de declarar @FindBy
+	@FindBy(how = How.XPATH, using ="//img[@alt='company-branding']")
+	WebElement img_logo2;
 
 	// Action Methods
 	public void setUserName(String userName) {

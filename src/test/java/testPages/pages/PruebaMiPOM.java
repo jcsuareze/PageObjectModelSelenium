@@ -7,15 +7,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import com.beust.jcommander.Parameter;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class LoginTest {
-
+public class PruebaMiPOM {
+	
 	WebDriver driver;
-	// LoginPage lp;
-	LoginPage2 lp;
+	PageObjectModelMetodos metodos;
 
 	@BeforeClass
 	void setup() {
@@ -24,29 +26,18 @@ public class LoginTest {
 		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 		driver.get("http://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
 		driver.manage().window().maximize();
-		// lp = new LoginPage(driver);
-		lp = new LoginPage2(driver);
-	}
-
-	@Test(priority = 1)
-	void checkLogo() {
-
-		Assert.assertEquals(lp.checkLogoPresence(), true);
+		metodos = new PageObjectModelMetodos(driver);
 
 	}
-
-	@Test(priority = 2)
-	void testLogin() {
-
-		lp.setUserName("Admin");
-		lp.setPassword("admin123");
-		lp.clickSubmit();
-
-		Assert.assertEquals(driver.getTitle(), "OrangeHRM");
+	@Test
+	@Parameters({"CopyRight"})
+	void pruebaTexto(String CopyRight) {
+		Assert.assertEquals(metodos.getText(), CopyRight);
 	}
-
+	
 	@AfterClass
-	void tearDown() {
+	void cierra() {
 		//driver.quit();
 	}
+
 }
